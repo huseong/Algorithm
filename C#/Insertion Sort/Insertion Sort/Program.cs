@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Insertion_Sort {
     class Program {
@@ -19,7 +15,7 @@ namespace Insertion_Sort {
                 Console.Write(inputs[j] + " ");
             }
         }
-        // 5 4 3 2 1
+
         static void insertionSort(int[] arr, int index) { // inputs, 4, 2
             int value = arr[index]; // we have to assign index value in int.
             for(int i=0; i<index; i++) { // start compare index 1.
