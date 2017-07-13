@@ -3,29 +3,34 @@
 namespace MergeSort {
     class Program {
         static void Main (string[] args) {
-            string[] input = Console.ReadLine().Split(' ');
-            int[] inputs = new int[input.Length];
-            for(int i=0; i<input.Length; i++) {
-                inputs[i] = int.Parse(input[i]);
-            }
-            printArr(mergeSort(inputs));
+            int[] arr = { 10, 30, 25, 29, 48, 90, 45 };
+            double[] arr1 = { 12.5, 13.7, 11.5, 18.9, 14.2, 5.8 };
+            Console.Write("int Array : ");
+            printArr(arr);
+            Console.Write("double Array : ");
+            printArr(arr1);
+            Console.Write("Sorted int Array : ");
+            printArr(mergeSort(arr));
+            Console.Write("Sorted double Array : ");
+            printArr(mergeSort(arr1));
         }
 
-        static void printArr(int[] arr) {
+        static void printArr<T>(T[] arr) {
             for(int i=0; i<arr.Length; i++) {
-                Console.Write(arr[i] + " ");
+                Console.Write(arr[i].ToString() + " ");
             }
+            Console.WriteLine();
         }
 
-        static int[] merge(int[] a, int[] b) {
+        static T[] merge<T>(T[] a, T[] b) where T : struct, IComparable, IComparable<T>, IConvertible, IEquatable<T>, IFormattable {
             int i = 0;
             int j = 0;
-            int[] returnArray = new int[a.Length + b.Length];
+            T[] returnArray = new T[a.Length + b.Length];
             int count = 0;
-            while(true) {
-                if(i == a.Length) {
+            while (true) {
+                if (i == a.Length) {
                     int len = b.Length - j;
-                    for(int k=0; k<len; k++) {
+                    for (int k = 0; k < len; k++) {
                         returnArray[count++] = b[j + k];
                     }
                     break;
@@ -37,7 +42,7 @@ namespace MergeSort {
                     }
                     break;
                 }
-                if (a[i] < b[j]) {
+                if (a[i].CompareTo(b[j]) < 0) {
                     returnArray[count++] = a[i++];
                 } else {
                     returnArray[count++] = b[j++];
@@ -45,15 +50,15 @@ namespace MergeSort {
             }
             return returnArray;
         }
-        static int[] copy(int[] arr, int startIndex, int size) {
-            int[] returnArray = new int[size];
+        static T[] copy<T>(T[] arr, int startIndex, int size) where T : struct, IComparable, IComparable<T>, IConvertible, IEquatable<T>, IFormattable {
+            T[] returnArray = new T[size];
             for(int i=0; i<size; i++) {
                 returnArray[i] = arr[startIndex + i];
             }
             return returnArray;
         }
 
-        static int[] mergeSort(int[] arr) {
+        static T[] mergeSort<T>(T[] arr) where T : struct, IComparable, IComparable<T>, IConvertible, IEquatable<T>, IFormattable {
             if(arr.Length > 1) {
                 int mid = arr.Length / 2;
                 return merge(mergeSort(copy(arr, 0, mid)), mergeSort(copy(arr, mid, arr.Length - mid)));
